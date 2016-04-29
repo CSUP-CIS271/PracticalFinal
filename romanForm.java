@@ -1,3 +1,10 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package finalproject;
+
 /**
  *
  * @author Vitor
@@ -75,7 +82,7 @@ public class romanForm extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        result.setText(romanConvert(textField.getText())+"");
+        result.setText(romanConvert(textField.getText()));
     }                                        
 
     /**
@@ -112,68 +119,140 @@ public class romanForm extends javax.swing.JFrame {
             }
         });
     }
-    
-    public static int romanConvert(String roman) {
+
+    public static String romanConvert(String roman) {
         int totalDecimal = 0;
         int previousNumber = 0;
-        roman = roman+"z";
-        // The Z was use for the program sum the last letter
+
         String romanUpper = roman.toUpperCase();
-        
-        for (int x = 0; x < romanUpper.length() ; x++) {
-            char letter = romanUpper.charAt(x);
-            
-            switch (letter) {
-                case 'M':
-                    totalDecimal = totalDecimal+ decimalLogic(1000, previousNumber);
-                    previousNumber = 1000;
-                    break;
+        if (checkroman(romanUpper)) {
+            romanUpper = romanUpper + "Z";
+            // The Z was use for the program sum the last letter
+            for (int x = 0; x < romanUpper.length(); x++) {
+                char letter = romanUpper.charAt(x);
 
-                case 'D':
-                    totalDecimal = totalDecimal+ decimalLogic(500, previousNumber);
-                    previousNumber = 500;
-                    break;
+                switch (letter) {
+                    case 'M':
+                        totalDecimal = totalDecimal + decimalLogic(1000, previousNumber);
+                        previousNumber = 1000;
+                        break;
 
-                case 'C':
-                    totalDecimal = totalDecimal+ decimalLogic(100, previousNumber);
-                    previousNumber = 100;
-                    break;
+                    case 'D':
+                        totalDecimal = totalDecimal + decimalLogic(500, previousNumber);
+                        previousNumber = 500;
+                        break;
 
-                case 'L':
-                    totalDecimal = totalDecimal+ decimalLogic(50, previousNumber);
-                    previousNumber = 50;
-                    break;
+                    case 'C':
+                        totalDecimal = totalDecimal + decimalLogic(100, previousNumber);
+                        previousNumber = 100;
+                        break;
 
-                case 'X':
-                    totalDecimal = totalDecimal+ decimalLogic(10, previousNumber);
-                    previousNumber = 10;
-                    break;
+                    case 'L':
+                        totalDecimal = totalDecimal + decimalLogic(50, previousNumber);
+                        previousNumber = 50;
+                        break;
 
-                case 'V':
-                    totalDecimal = totalDecimal+ decimalLogic(5, previousNumber);
-                    previousNumber = 5;
-                    break;
+                    case 'X':
+                        totalDecimal = totalDecimal + decimalLogic(10, previousNumber);
+                        previousNumber = 10;
+                        break;
 
-                case 'I':
-                    totalDecimal = totalDecimal+ decimalLogic(1, previousNumber);
-                    previousNumber = 1;
-                    break;
-                case 'Z':
-                    totalDecimal = totalDecimal+ decimalLogic(0, previousNumber);
-                    
-                    break;
+                    case 'V':
+                        totalDecimal = totalDecimal + decimalLogic(5, previousNumber);
+                        previousNumber = 5;
+                        break;
+
+                    case 'I':
+                        totalDecimal = totalDecimal + decimalLogic(1, previousNumber);
+                        previousNumber = 1;
+                        break;
+                    case 'Z':
+                        totalDecimal = totalDecimal + decimalLogic(0, previousNumber);
+
+                        break;
+                }
             }
+            return totalDecimal + "";
+        } else {
+            return "Roman Number Invalid!";
         }
-        return totalDecimal;
     }
 
     public static int decimalLogic(int actualNumber, int previousNumber) {
-        
+
         if (actualNumber <= previousNumber) {
             return previousNumber;
         } else {
             return -previousNumber;
         }
+    }
+
+    public static boolean checkroman(String romanNumber) {
+        int M_quant = 0;
+        int D_quant = 0;
+        int C_quant = 0;
+        int L_quant = 0;
+        int X_quant = 0;
+        int V_quant = 0;
+        int I_quant = 0;
+
+        for (int k = 0; k < romanNumber.length(); k++) {
+
+            switch (romanNumber.charAt(k)) {
+                case 'M':
+                    M_quant++;
+                    if (M_quant > 3) {
+                        return false;
+                    }
+                    break;
+
+                case 'D':
+                    D_quant++;
+                    if (D_quant > 3) {
+                        return false;
+                    }
+                    break;
+
+                case 'C':
+                    C_quant++;
+                    if (C_quant > 3) {
+                        return false;
+                    }
+                    break;
+
+                case 'L':
+                    L_quant++;
+                    if (L_quant > 3) {
+                        return false;
+                    }
+                    break;
+
+                case 'X':
+                    X_quant++;
+                    if (X_quant > 3) {
+                        return false;
+                    }
+                    break;
+
+                case 'V':
+                    V_quant++;
+                    if (V_quant > 3) {
+                        return false;
+                    }
+                    break;
+
+                case 'I':
+                    I_quant++;
+                    if (I_quant > 3) {
+                        return false;
+                    }
+                    break;
+                default:
+                    return false;
+            }
+        }
+
+        return true;
     }
 
     // Variables declaration - do not modify                     
@@ -183,3 +262,4 @@ public class romanForm extends javax.swing.JFrame {
     private javax.swing.JTextField textField;
     // End of variables declaration                   
 }
+
