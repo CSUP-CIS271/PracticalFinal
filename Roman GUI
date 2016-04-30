@@ -1,0 +1,140 @@
+/*Johnny Voss
+Josh Greer, Randall Sirota, David Giordano
+Final Project 2016
+*/
+
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.event.ActionListener;
+import java.io.*;
+import javax.swing.*;
+//GUI to convert Roman to Decimal
+
+import java.io.*;
+public class RomanConverterFinal extends JFrame
+{
+	private JLabel romanL;
+	private JLabel decimalL;
+	private JLabel originalL;
+
+	private JTextField romanTF;
+	private JTextField decimalTF;
+	private JLabel dynamicL;
+
+	private RomHandler romanHandler;
+	private DecHandler decHandler;
+
+	private static final int WIDTH = 500;
+	private static final int HEIGHT = 150;
+
+	public RomanConverter()
+	{
+		setTitle("Roman Numeral Conversion");
+		Container pane = getContentPane();
+		pane.setLayout(new GridLayout(3, 2));
+
+		romanL = new JLabel("Roman Numeral: ", SwingConstants.RIGHT);
+		decimalL = new JLabel("Decimal Value: ", SwingConstants.RIGHT);
+		originalL = new JLabel("Original Roman Numeral: ",SwingConstants.RIGHT);
+
+		romanTF = new JTextField(7);
+		romanTF.setHorizontalAlignment(JTextField.CENTER);
+		decimalTF = new JTextField(7);
+		decimalTF.setHorizontalAlignment(JTextField.CENTER);
+		dynamicL = new JLabel("", SwingConstants.CENTER);
+
+		pane.add(romanL);
+		pane.add(romanTF);
+		pane.add(decimalL);
+		pane.add(decimalTF);
+		pane.add(originalL);
+		pane.add(dynamicL);
+
+		romanHandler = new RomHandler();
+		romanTF.addActionListener(romanHandler);
+
+		decHandler = new DecHandler();
+		decimalTF.addActionListener(decHandler);
+
+		setSize(WIDTH, HEIGHT);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setVisible(true);
+	}//end class RomanConverter
+
+	private class RomHandler implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			Color warn = new Color(255,127,127);
+			Color ok = new Color(127,255,127);
+			Roman temp = new Roman();
+			temp.setRoman(romanTF.getText());
+			int num = 0;
+
+			if (temp.testRoman() != true || temp.getRoman().matches(""))
+			{
+				decimalTF.setBackground(warn);
+				decimalTF.setText("INVALID FORMAT");
+				dynamicL.setBackground(warn);
+				dynamicL.setText("ENTER A VALID ROMAN NUMERAL");
+			}
+			else
+			{
+				num = temp.romanToDecimal();
+				decimalTF.setBackground(ok);
+				decimalTF.setText("" + temp.getDecimal());
+				dynamicL.setBackground(ok);
+				dynamicL.setText(temp.getRoman());
+
+			}
+		}//end action
+	}//end class RomHandler
+
+	private class DecHandler implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			Color warn = new Color(255,127,127);
+			Color ok = new Color(127,255,127);
+			Roman temp = new Roman();
+			String str = "";
+			int i = 0;
+			try
+			{
+				i = Integer.parseInt(decimalTF.getText());
+				temp.setDecimalNum(i);			
+				if (i>=4000 || i<=0)
+				{
+					romanTF.setBackground(warn);
+					romanTF.setText("INVALID FORMAT");
+					dynamicL.setBackground(warn);
+					dynamicL.setText("MUST BE BETWEEN 0 & 4000");
+				}
+				else
+				{
+					str = temp.decToRoman(i);
+					romanTF.setBackground(ok);
+					romanTF.setText("" + temp.getRoman());
+					decimalTF.setBackground(Color.WHITE);
+					dynamicL.setBackground(ok);
+					dynamicL.setText(temp.getRoman());
+				}
+			}
+			catch(Exception ex)
+			{
+				romanTF.setBackground(warn);
+				romanTF.setText("INVALID FORMAT FROM STRING");
+				dynamicL.setBackground(warn);
+				dynamicL.setText("ENTER A VALID NUMERAL");
+			}
+			
+
+
+		} 
+	}
+
+	public static void main(String[] args)
+	{
+		RomanConverter romanIntConv = new RomanConverter();
+	}//end main method
+}//end class RomanConverter
