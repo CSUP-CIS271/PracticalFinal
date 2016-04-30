@@ -1,0 +1,130 @@
+//Joshua Greer, Randy Sirota, David Giordano 
+//class Roman
+//to store a roman numeral and convert to a decimal
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
+public class Roman
+{
+ private int total, preValue, value;
+ private char ch = ' ';
+ private String romanNum = "";
+
+ public Roman()
+ {
+  romanNum = "";
+ }
+
+ public Roman(String str)
+ {
+  setRoman(str);
+ }
+
+ public void setRoman(String str)
+ {
+  romanNum = str.toUpperCase();
+ }
+
+ public void setDecimalNum(int i)
+ {
+  total = i;
+ }
+
+ public String getRoman()
+ {
+  return romanNum;
+ }
+
+ public int getDecimal()
+ {
+  return total;
+ }
+
+ public boolean testRoman()
+ {
+  Pattern test = Pattern.compile("^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$");
+  Matcher match = test.matcher(getRoman());
+
+  return match.matches();
+ }
+
+ public int romanToDecimal()//book mandated method name
+ {
+  for (int i = romanNum.length() - 1; i >= 0 ; i--)
+  {
+   ch = romanNum.charAt(i);
+   switch (ch)
+   {
+   case 'M':
+    value = 1000;
+    total = processNum(value, preValue, total);
+    preValue = 1000;
+    break;
+
+   case 'D':
+    value = 500;
+    total = processNum(value, preValue, total);
+    preValue = 500;
+    break;
+
+   case 'C':
+    value = 100;
+    total = processNum(value, preValue, total);
+    preValue = 100;
+    break;
+
+   case 'L':
+    value = 50;
+    total = processNum(value, preValue, total);
+    preValue = 50;
+    break;
+
+   case 'X':
+    value = 10;
+    total = processNum(value, preValue, total);
+    preValue = 10;
+    break;
+
+   case 'V':
+    value = 5;
+    total = processNum(value, preValue, total);
+    preValue = 5;
+    break;
+
+   case 'I':
+    value = 1;
+    total = processNum(value, preValue, total);
+    preValue = 1;
+    break;
+   }
+  }
+  return total;
+
+ }
+
+ public int processNum(int value, int preValue, int total)
+ {
+  if (preValue > value)
+   return total - value;
+  else
+   return total + value;
+ }
+
+ public String decToRoman(int input){
+  int quotient;
+  String roman="";
+  int value[]={1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+  String symbol[]={"M","CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+  for(int arrayindex = 0; input > 0; arrayindex++){  // Enter Loop If Input Is Valid
+     quotient = input / value[arrayindex];           // Identifies What Roman Symbol Is Needed
+
+      for(int z = 1; quotient >= z; z++){            // Enter Loop When Symbol Will Be Added To The String
+          roman=roman + symbol[arrayindex];          // Adds Symbol To The String
+      }
+
+    input = input % value[arrayindex];               // Send Remainder To The Start of For Loop
+  }
+  this.setRoman(roman);
+   return roman;
+ }
+}//end class
