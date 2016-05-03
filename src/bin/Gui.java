@@ -39,9 +39,9 @@ public class Gui extends JFrame{
        constraints.gridwidth = 1;
        add(output, constraints);
 
-       convertToRoman = new JButton("Convert to Roman");
-       constraints.gridx = 2;
-       add(convertToRoman, constraints);
+       //convertToRoman = new JButton("Convert to Roman");
+       //constraints.gridx = 2;
+       //add(convertToRoman, constraints);
 
        convertToArabic = new JButton("Convert to Arabic");
        constraints.gridx = 3;

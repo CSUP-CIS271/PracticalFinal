@@ -1,1 +1,1 @@
-javac -d ./ ./src/*
+javac -d ./ ./src/bin/*

@@ -10,6 +10,7 @@ public class Client {
     // Singleton get implemented because no likey static methods :x
     */
     Gui gui;
+    toArabic toarabic;
     ArrayList<Character> constants = new ArrayList<Character>(){{
         add('M');
         add('D');
@@ -29,6 +30,12 @@ public class Client {
         gui.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         gui.setVisible(true);
         gui.setSize(500, 100);
+        
+        // make your action listeners.
+        toarabic = new toArabic();
+        
+        // add your action listeners.
+        gui.convertToArabic.addActionListener(toarabic);
     }
     
     class toArabic implements ActionListener {
