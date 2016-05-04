@@ -3,9 +3,6 @@ package bin;
 
 import java.awt.event.*;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.text.BadLocationException;
 
 
 public class Client {
@@ -76,11 +73,11 @@ public class Client {
                 if (constants.contains(previous)) {
                     System.out.println(charinput.length);
                     for (int x = 0; x < charinput.length; x ++) {
-                        System.out.println(inputtext);
+                        System.out.println(charinput[x]);
                     }
                     switch(previous) {
                         case 'D':
-                            if (charinput[i-1] == 'M') {
+                            if (charinput[i-1] == 'M'  || charinput [i-1] == 'D') {
                                 break;
                             }
                             total -= 1000;
@@ -88,7 +85,7 @@ public class Client {
                             System.out.print("Total: " + total);
                             break;
                         case 'C':
-                            if (charinput[i-1] == 'D') {
+                            if (charinput[i-1] == 'D'  || charinput [i-1] == 'C') {
                                 break;
                             } 
                             total -= 500;
@@ -96,7 +93,7 @@ public class Client {
                             System.out.print(total);
                             break;
                         case 'L':
-                            if (charinput[i-1] == 'C') {
+                            if (charinput[i-1] == 'C'  || charinput [i-1] == 'L') {
                                 break;
                             }
                             total -= 50;
@@ -104,7 +101,7 @@ public class Client {
                             System.out.print("Total: " + total);
                             break;
                         case 'X':
-                            if (charinput[i-1] == 'L') {
+                            if (charinput[i-1] == 'L'  || charinput [i-1] == 'X') {
                                 break;
                             }
                             total -= 10;
@@ -112,7 +109,7 @@ public class Client {
                             System.out.print("Total: " + total);
                             break;
                         case 'V':
-                            if (charinput[i-1] == 'M') {
+                            if (charinput[i-1] == 'M' || charinput [i-1] == 'V') {
                                 break;
                             }
                             total -= 5;
@@ -120,7 +117,7 @@ public class Client {
                             System.out.print("Total: " + total);
                             break;
                         case 'I':
-                            if (charinput[i-1] == 'V') {
+                            if (charinput[i-1] == 'V' || charinput [i] == 'I') {
                                 break;
                             }
                             total -= 1;
