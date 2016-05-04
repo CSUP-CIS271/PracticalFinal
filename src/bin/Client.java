@@ -3,6 +3,9 @@ package bin;
 
 import java.awt.event.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.text.BadLocationException;
 
 
 public class Client {
@@ -40,7 +43,7 @@ public class Client {
     
     class toArabic implements ActionListener {
         String inputtext;
-        char[] charinput;
+        // char[] charinput;
         char previous;
         int total = 0;
         
@@ -53,15 +56,14 @@ public class Client {
         
         @Override
         public void actionPerformed(ActionEvent e) {
-            try { inputtext = gui.input.toString().toUpperCase(); }
+            char [] charinput = null;
+            try { inputtext = gui.input.getText(); }
             catch (IllegalArgumentException x) {
                 gui.output.setText("Please enter either a Roman Numeral or a Number");
             }
-            for (int i = 0; i < inputtext.length(); i++) {
-                    if (constants.contains(inputtext.charAt(i))) {
-                    charinput = inputtext.toCharArray();
-                } else { gui.output.setText("Please enter a Roman Numeral");}
-            }
+            if (constants.contains(inputtext.charAt(0))) {
+                charinput = inputtext.toCharArray();
+            } else { gui.output.setText("Please enter a Roman Numeral");}
             
             for (int i = 0; i < charinput.length; i++) {
                 /* 
@@ -72,6 +74,10 @@ public class Client {
                 // 4) adds to toal based on current place in loop
                 */
                 if (constants.contains(previous)) {
+                    System.out.println(charinput.length);
+                    for (int x = 0; x < charinput.length; x ++) {
+                        System.out.println(inputtext);
+                    }
                     switch(previous) {
                         case 'D':
                             if (charinput[i-1] == 'M') {
@@ -79,6 +85,7 @@ public class Client {
                             }
                             total -= 1000;
                             previous = 'r';
+                            System.out.print("Total: " + total);
                             break;
                         case 'C':
                             if (charinput[i-1] == 'D') {
@@ -86,6 +93,7 @@ public class Client {
                             } 
                             total -= 500;
                             previous = 'r';
+                            System.out.print(total);
                             break;
                         case 'L':
                             if (charinput[i-1] == 'C') {
@@ -93,6 +101,7 @@ public class Client {
                             }
                             total -= 50;
                             previous = 'r';
+                            System.out.print("Total: " + total);
                             break;
                         case 'X':
                             if (charinput[i-1] == 'L') {
@@ -100,6 +109,7 @@ public class Client {
                             }
                             total -= 10;
                             previous = 'r';
+                            System.out.print("Total: " + total);
                             break;
                         case 'V':
                             if (charinput[i-1] == 'M') {
@@ -107,6 +117,7 @@ public class Client {
                             }
                             total -= 5;
                             previous = 'r';
+                            System.out.print("Total: " + total);
                             break;
                         case 'I':
                             if (charinput[i-1] == 'V') {
@@ -114,6 +125,7 @@ public class Client {
                             }
                             total -= 1;
                             previous = 'r';
+                            System.out.print("Total: " + total);
                             break;
                     }
                 }
@@ -121,32 +133,39 @@ public class Client {
                     case 'D':
                         total += 1000;
                         previous = 'D';
+                        System.out.print("Total: " + total);
                         break;
                     case 'C':
                         total += 500;
                         previous = 'C';
+                        System.out.print("Total: " + total);
                         break;
                     case 'L':
                         total += 50;
                         previous = 'L';
+                        System.out.print("Total: " + total);
                         break;
                     case 'X':
                         total += 10;
                         previous = 'X';
+                        System.out.print("Total: " + total);
                         break;
                     case 'V':
                         total += 5;
                         previous = 'V';
+                        System.out.print("Total: " + total);
                         break;
                     case 'I':
                         total += 1;
                         previous = 'I';
+                        System.out.print("Total: " + total);
                         break;
                 }
             } // end of murder switches.
             
-            // post the output to the gui. This is very Hamfisted.
+            // post the output to the gui and cli. This is very Hamfisted.
             gui.output.setText("Arabic Number :" + total);
+            System.out.println("Arabic Number :" + total);
         } 
     } // end nested class
     
